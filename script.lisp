@@ -1,0 +1,25 @@
+(define k 0)
+(define f (lambda (n) (if (> n 0) (begin (if (= n 5) (call/cc (lambda (y) (set! k y)))) (display n) (f (- n 1))))))
+(f 10)
+(k 2)
+
+(let ((x 3) (y 2)) (+ x y))
+(let ((e (lambda (x) (if (= x 0) 1 (o (- x 1)))))
+	(o (lambda (x) (if (= x 0) 0 (e (- x 1))))))
+	(begin (display (e 2)) (o 2)))
+(letrec ((e (lambda (x) (if (= x 0) 1 (o (- x 1)))))
+	(o (lambda (x) (if (= x 0) 0 (e (- x 1))))))
+	(begin (display (e 2)) (o 2)))
+	
+(e 2)
+(o 3)
+
+(define e (lambda (x) (if (= x 0) 1 (o (- x 1)))))
+(define o (lambda (x) (if (= x 0) 0 (e (- x 1)))))
+(e 2)
+(e 3)
+(o 2)
+(o 3)
+
+(set! k 3)
+(display k)
