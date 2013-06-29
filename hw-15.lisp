@@ -1,6 +1,8 @@
 ;;Add-list, add-genlist, add-list-struct, and add-genlist-struct
 ;;are all helper functions so that #'identity and (make-ident-cont)
 ;;don't need to be passed as parameters
+
+;;add-list adds only the integers in a list, doesn't recurse
 (defun add-list (l)
   (add-l l #'identity))
 
@@ -11,6 +13,7 @@
 		(lambda (x) (funcall k (+ (car l) x)))))
 	(t (add-l (cdr l) k))))
 
+;;add-genlist adds the integers in a list, including integers found by recursing into sublists
 (defun add-genlist (l)
   (add-genl l #'identity))
 
@@ -38,7 +41,8 @@
 	     (genl1-cont (add-genls (genl1-cont-carl k)
 				    (make-plus-cont :x x
 						    :pk (genl1-cont-pk k))))))
-			 
+
+;;add-list using structures instead of lambda continuations
 (defun add-list-struct (l)
   (add-ls l (make-ident-cont)))
 
@@ -50,6 +54,7 @@
 				      :pk k)))
 	(t (add-ls (cdr l) k))))
 
+;;add-genlist using structures instead of lambda continuations
 (defun add-genlist-struct (l)
   (add-genls l (make-ident-cont)))
 
